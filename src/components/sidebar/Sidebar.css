@@ -1,0 +1,9 @@
+.sidebarContainer {
+    height: 100%;
+    width: 20%;
+    background-color: lightblue;
+}
+
+.sidebarList {
+    margin-top: 0px;
+}
