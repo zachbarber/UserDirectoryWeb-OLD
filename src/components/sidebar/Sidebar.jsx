@@ -26,8 +26,8 @@ class Sidebar extends React.Component {
         const { isExpanded } = this.state;
 
         return (
-            <>
-                <div className={isExpanded ? 'sidebarContainerExpanded' : 'sidebarContainerCollapsed'} >
+        <>
+                    <div className={isExpanded ? 'sidebarContainerExpanded' : 'sidebarContainerCollapsed'} >
                     <div className={isExpanded ? 'sidebarListContainerExpanded' : 'sidebarListContainerCollapsed'} >
                         <ul className={isExpanded ? 'sidebarListExpanded' : 'sidebarListCollapsed'} >
                             <li className={isExpanded ? 'sidebarListItemExpanded' : 'sidebarListItemCollapsed'}>Link 1</li>

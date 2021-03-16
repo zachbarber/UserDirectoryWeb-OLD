@@ -19,12 +19,12 @@
 
 .sidebarListContainerExpanded {
     width: 90%;
-    transition: width .4s ease;
+    transition: width .7s ease;
 }
 
 .sidebarListContainerCollapsed {
     width: 0%;
-    transition: width .4s ease;
+    transition: width .7s ease;
 }
 
 .sidebarListExpanded, .sidebarListCollapsed {
@@ -32,9 +32,10 @@
 }
 
 .sidebarListExpanded {
-    width: 100%;
-    transition: width .4s ease;
     list-style: none;
+    width: 100%;
+    animation-name: sidebarListFadeIn;
+    animation-duration: 1s;
 }
 
 .sidebarListCollapsed {
@@ -52,4 +53,13 @@
 .sidebarButton {
     width: 30px;
     height: 30px;
+}
+
+@keyframes sidebarListFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
