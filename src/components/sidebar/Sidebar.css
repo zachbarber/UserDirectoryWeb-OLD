@@ -1,9 +1,55 @@
-.sidebarContainer {
+.sidebarContainerExpanded {
     height: 100%;
     width: 20%;
+    transition: width .4s ease;
+    background-color: lightblue;
+    display: flex;
+}
+
+.sidebarContainerCollapsed {
+    height: 100%;
+    width: 1.5%;
+    transition: width .4s ease;
     background-color: lightblue;
 }
 
-.sidebarList {
+.sidebarListContainerExpanded, .sidebarListContainerCollapsed {
+    background-color: lightblue;
+}
+
+.sidebarListContainerExpanded {
+    width: 90%;
+    transition: width .4s ease;
+}
+
+.sidebarListContainerCollapsed {
+    width: 0%;
+    transition: width .4s ease;
+}
+
+.sidebarListExpanded, .sidebarListCollapsed {
     margin-top: 0px;
+}
+
+.sidebarListExpanded {
+    width: 100%;
+    transition: width .4s ease;
+    list-style: none;
+}
+
+.sidebarListCollapsed {
+    display: none;
+}
+
+.sidebarButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 100%;
+}
+
+.sidebarButton {
+    width: 30px;
+    height: 30px;
 }
