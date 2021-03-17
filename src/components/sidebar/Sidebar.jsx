@@ -37,7 +37,7 @@ class Sidebar extends React.Component {
                     </div>
 
                     <div className='sidebarButtonContainer'>
-                        <img className='sidebarButton' onClick={this.sidebarButtonOnClick} src={isExpanded ? `${process.env.PUBLIC_URL}/leftArrow.png` : `${process.env.PUBLIC_URL}/rightArrow.png`} alt='sidebarArrow'/>
+                        <img className='sidebarButton' onClick={this.sidebarButtonOnClick} src={isExpanded ? `${process.env.PUBLIC_URL}/leftArrow.png` : `${process.env.PUBLIC_URL}/rightArrow.png`} alt={isExpanded ? 'collapse sidebar arrow' : 'expand sidebar arrow'}/>
                     </div>
                 </div>
             </>
