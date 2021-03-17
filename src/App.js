@@ -1,6 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
+import Home from './components/Home/Home'
+import Employee from './components/Employee/Employee'
 import './App.css';
 
 class App extends React.Component {
@@ -9,14 +11,14 @@ class App extends React.Component {
 
     super();
 
-    this.sidebarSelector = this.sidebarSelector.bind(this);
+    this.sidebarSelectHandler = this.sidebarSelectHandler.bind(this);
 
     this.state = {
       sidebarLinkSelection: 'home'
     }
   }
 
-  sidebarSelector(selectedLink) {
+  sidebarSelectHandler(selectedLink) {
     this.setState({
       sidebarLinkSelection: selectedLink
     });
@@ -26,8 +28,22 @@ class App extends React.Component {
 
     return (
       <div className='app'>
-        <Sidebar />
+        <Sidebar sidebarSelectHandler={this.sidebarSelectHandler} />
         <div className='pageContent'>
+
+          <Router>
+
+            <Route path='/home'>
+              <Home />
+            </Route>
+
+            <Route path ='/employee'>
+              <Employee />
+            </Route>
+
+            <Redirect to={this.state.sidebarLinkSelection} />
+
+          </Router>
 
         </div>
       </div>

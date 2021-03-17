@@ -1,7 +1,7 @@
 import React from 'react';
-import './Home.css';
+import './Employee.css';
 
-class Home extends React.Component {
+class Employee extends React.Component {
     constructor(props) {
 
         super(props)
@@ -16,10 +16,10 @@ class Home extends React.Component {
 
         return (
             <>
-                <h1 className='test'>Home</h1>
+                <h1 className='test'>Employee</h1>
             </>
         )
     }
 }
 
-export default Home;
+export default Employee;

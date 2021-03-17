@@ -31,6 +31,10 @@
     margin-top: 0px;
 }
 
+.sidebarListExpanded li, .sidebarListCollapsed li {
+    cursor: pointer;
+}
+
 .sidebarListExpanded {
     list-style: none;
     width: 100%;
@@ -46,13 +50,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
+    min-width: 30px;
     height: 100%;
 }
 
 .sidebarButton {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 @keyframes sidebarListFadeIn {
