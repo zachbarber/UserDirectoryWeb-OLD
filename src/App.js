@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
-import Home from './components/Home/Home'
-import DepartmentsList from './components/DepartmentsList/DepartmentsList'
+import Home from './components/Home/Home';
+import DepartmentsList from './components/DepartmentsList/DepartmentsList';
+import EmployeesList from './components/EmployeesList/EmployeesList';
 import './App.css';
 
 class App extends React.Component {
@@ -39,6 +40,10 @@ class App extends React.Component {
 
             <Route path ='/departments'>
               <DepartmentsList />
+            </Route>
+
+            <Route path='/employees'>
+              <EmployeesList />
             </Route>
 
             <Redirect to={this.state.sidebarLinkSelection} />
