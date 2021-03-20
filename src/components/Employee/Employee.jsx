@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './Employee.css';
 
 class Employee extends React.Component {
@@ -7,17 +8,23 @@ class Employee extends React.Component {
         super(props)
 
         this.state = {
-
+            employee: null
         }
+    }
 
+    async componentDidMount() {
+
+        const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/employees?id=${this.props.id}`)
+
+        this.setState({ employee: data[0] })
     }
 
     render() {
 
         return (
-            <>
-                <h1 className='test'>Employee</h1>
-            </>
+            <div className='headerDiv'>
+                <h1 className='nameHeader'>{this.state.employee?.name}</h1>
+            </div>
         )
     }
 }

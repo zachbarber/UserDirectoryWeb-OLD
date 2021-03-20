@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './DepartmentsList.css';
 
 class DepartmentsList extends React.Component {
@@ -7,19 +8,37 @@ class DepartmentsList extends React.Component {
         super(props)
 
         this.state = {
-
+            Departments: []
         }
+    }
 
+    async componentDidMount() {
+
+        const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/Departments`)
+
+        this.setState({ Departments: data })
     }
 
     render() {
 
+        const { Departments } = this.state;
+
+        const DepartmentsList = Departments.map(department => {
+
+            return <li onClick={(clickEvent) => this.props.departmentSelectHandler(clickEvent.target.id)} id={department.id} className='departmentLink'>{department.name}</li>
+        });
+
         return (
-            <>
-                <h1 className='test'>DepartmentsList</h1>
-            </>
+            <div>
+                <ul>
+                    {DepartmentsList}
+                </ul>
+            </div>
         )
     }
 }
 
-export default DepartmentsList;
+
+
+
+export default DepartmentsList

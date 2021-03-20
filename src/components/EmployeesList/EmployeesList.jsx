@@ -4,6 +4,7 @@ import './EmployeesList.css';
 
 class EmployeesList extends React.Component {
     constructor(props) {
+
         super(props)
 
         this.state = {
@@ -11,12 +12,11 @@ class EmployeesList extends React.Component {
         }
     }
 
-
     async componentDidMount() {
 
-        const employees = await axios.get('localhost:35565/api/employees')
+        const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/employees`)
 
-        this.setState({ employees })
+        this.setState({ employees: data })
     }
 
     render() {
@@ -25,7 +25,7 @@ class EmployeesList extends React.Component {
 
         const employeesList = employees.map(employee => {
 
-            return <li id={employee.id}>{employee.name}</li>
+            return <li onClick={(clickEvent) => this.props.employeeSelectHandler(clickEvent.target.id)} id={employee.id} className='employeeLink'>{employee.name}</li>
         });
 
         return(
