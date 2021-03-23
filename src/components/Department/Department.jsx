@@ -8,7 +8,10 @@ class Department extends React.Component {
         super(props)
 
         this.state = {
-            department: null
+            departmentId: this.props.id,
+            departmentName: null,
+            supervisorId: null,
+            employees: []
         }
     }
 
@@ -16,14 +19,32 @@ class Department extends React.Component {
 
         const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/departments/?id=${this.props.id}`);
 
-        this.setState({ department: data[0] });
+        const employeesList = [];
+
+        for (const employee in data) {
+
+            employeesList.push({
+                employeeId: data[employee].employeeId,
+                employeeName: data[employee].employeeName,
+                isSupervisor: data[employee].isSupervisor
+            });
+        }
+
+        this.setState({
+            departmentId: data[0].id,
+            departmentName: data[0].name,
+            supervisorId: data[0].supervisorId,
+            employees: employeesList
+        });
+
+        console.log(this.state);
     }
 
     render() {
 
         return (
             <div className='headerDiv'>
-                <h1 className='nameHeader'>{this.state.department?.name}</h1>
+                <h1 className='nameHeader'>{this.state.departmentName}</h1>
             </div>
             //add in buttons (edit, add, delete) and space-between? flex
         )
