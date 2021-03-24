@@ -80,16 +80,20 @@ class Employee extends React.Component {
                     <>
                         <form onSubmit={(e) => this.onFormSubmit(e)}>
                             <label for='employeeName'>Name:</label><br />
-                            <input type='text' id='employeeName' name='Employee Name' /><br />
+                            <input type='text' id='employeeName' name='Employee Name' value={this.state.name} /><br />
 
                             <label for='employeeRole'>Role:</label><br />
-                            <input type='text' id='employeeRole' name='Employee Role' /><br />
+                            <input type='text' id='employeeRole' name='Employee Role' value={this.state.role} /><br />
 
-                            <label for='employeeName'>Employee Name:</label><br />
-                            <input type='text' id='employeeName' name='Employee Name' /><br />
+                            <label for='employeeDepartment'>Department:</label><br />
+                            <select id='employeeDepartment' name='Employee Department'>
+                            </select>
 
-                            <label for='employeeName'>Employee Name:</label><br />
-                            <input type='text' id='employeeName' name='Employee Name' /><br />
+                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.isSupervisor} />
+                            <label for='isSupervisor'>Supervisor</label><br />
+
+                            <label for='hireDate'>Hire Date:</label><br />
+                            <input type='date' id='hireDate' name='Employee Hire Date' value={this.state.hireDate} /><br />
                         </form>
                     </>
                     :
@@ -105,8 +109,8 @@ class Employee extends React.Component {
                             <h1>{this.state.employee.id}</h1>
                             <h1>{this.state.employee.role}</h1>
                             <h1>{this.state.employee.departmentId}</h1>
-                            <h1>{this.state.employee.isSupervisor}</h1>
                             <h1>{this.state.employee.hireDate}</h1>
+                            <h1>{this.state.employee.isSupervisor}</h1>
                         </div>
                     </>
                 }
