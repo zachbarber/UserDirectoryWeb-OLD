@@ -100,7 +100,7 @@ class Employee extends React.Component {
                             <label for='hireDate'>Hire Date:</label><br />
                             <input type='date' id='hireDate' name='EmployeeHireDate' onChange={(e) => this.inputOnChange(e)} /><br />
 
-                            <br /><input type='submit' id='editSubmit' name='editSubmit' vale='Submit' />
+                            <br /><input type='submit' id='editSubmit' name='editSubmit' value='Submit' />
                         </form>
                     </>
                     :
