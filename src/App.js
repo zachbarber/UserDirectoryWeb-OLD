@@ -53,7 +53,7 @@ class App extends React.Component {
     return (
       <div className='app'>
         <Sidebar sidebarSelectHandler={this.sidebarSelectHandler} />
-        <div className='pageContent'>
+        <div className='contentContainer'>
 
           <Router>
 

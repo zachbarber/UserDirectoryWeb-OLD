@@ -9,22 +9,15 @@ class Employee extends React.Component {
         super(props)
 
         this.state = {
-            employee: {
-                id: 0,
-                name: '',
-                role: '',
-                departmentId: 0,
-                isSupervisor: false,
-                hireDate: '1900-01-01',
-                createDate: '',
-                deleteDate: '',
-                departmentName: ''
-            },
+            employee: null,
+            updatedEmployee: null,
             isEditMode: false,
             departmentNameIds: []
         }
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onEditClick = this.onEditClick.bind(this);
+
     }
 
 
@@ -36,16 +29,17 @@ class Employee extends React.Component {
 
         this.setState({
             employee: employeeData,
+            updatedEmployee: employeeData,
             departmentNameIds
         });
     }
 
 
-    onFormSubmit(form) {
+    onFormSubmit(formSubmitEvent) {
 
-        form.preventDefault();
+        formSubmitEvent.preventDefault();
 
-        console.log(form);
+        console.log(formSubmitEvent);
 
         this.setState({ isEditMode: false });
     }
@@ -74,21 +68,21 @@ class Employee extends React.Component {
                     <>
                         <form onSubmit={(e) => this.onFormSubmit(e)}>
                             <label for='employeeName'>Name:</label><br />
-                            <input type='text' id='employeeName' name='EmployeeName' value={this.state.employee.name} /><br />
+                            <input type='text' id='employeeName' name='EmployeeName' value={this.state.updatedEmployee.name} /><br />
 
                             <label for='employeeRole'>Role:</label><br />
-                            <input type='text' id='employeeRole' name='EmployeeRole' value={this.state.employee.role} /><br />
+                            <input type='text' id='employeeRole' name='EmployeeRole' value={this.state.updatedEmployee.role} /><br />
 
                             <label for='employeeDepartment'>Department:</label><br />
                             <select id='employeeDepartment' name='EmployeeDepartment'>
                                 {selectOptions}
                             </select>
 
-                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.employee.isSupervisor} />
+                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.updatedEmployee.isSupervisor} />
                             <label for='isSupervisor'>Supervisor</label><br />
 
                             <label for='hireDate'>Hire Date:</label><br />
-                            <input type='date' id='hireDate' name='EmployeeHireDate' value={this.state.employee.hireDate} /><br />
+                            <input type='date' id='hireDate' name='EmployeeHireDate' /><br />
 
                             <br /><input type='submit' id='editSubmit' name='editSubmit' vale='Submit' />
                         </form>
@@ -99,37 +93,37 @@ class Employee extends React.Component {
                             <h1 className='employeeNameHeader'>Employee</h1>
                         </div>
                         <div className='employeeButtonHeader'>
-                            <button onClick={() => this.onEditClick()}>Edit Employee</button>
+                            <button onClick={this.onEditClick}>Edit Employee</button>
                         </div>
                         <div className='employeeBody'>
                             <div className='employeeBodyName'>
                                 <h1>Name: </h1>
-                                <h1>{this.state.employee.name}</h1><br />
+                                <h1>{this.state.employee?.name}</h1><br />
                             </div>
 
                             <div className='employeeBodyId'>
                                 <h1>Employee Id: </h1>
-                                <h1>{this.state.employee.id}</h1><br />
+                                <h1>{this.state.employee?.id}</h1><br />
                             </div>
 
                             <div className='employeeBodyRole'>
                                 <h1>Role: </h1>
-                                <h1>{this.state.employee.role}</h1><br />
+                                <h1>{this.state.employee?.role}</h1><br />
                             </div>
 
                             <div className='employeeBodyDepartment'>
                                 <h1>Department: </h1>
-                                <h1>{this.state.employee.departmentName}</h1><br />
+                                <h1>{this.state.employee?.departmentName}</h1><br />
                             </div>
 
                             <div className='employeeBodyHireDate'>
                                 <h1>Hire Date: </h1>
-                                <h1>{this.state.employee.hireDate}</h1><br />
+                                <h1>{new Date(this.state.employee?.hireDate).toLocaleDateString()}</h1><br />
                             </div>
 
                             <div className='employeeBodyIsSupervisor'>
                                 <h1>Supervisor?: </h1>
-                                <h1>{this.state.employee.isSupervisor ? `YES` : `NO`}</h1><br />
+                                <h1>{this.state.employee?.isSupervisor ? `YES` : `NO`}</h1><br />
                             </div>
                         </div>
                     </>
