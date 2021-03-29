@@ -3,75 +3,69 @@ import axios from 'axios';
 import './Employee.css';
 
 class Employee extends React.Component {
+
     constructor(props) {
 
         super(props)
 
         this.state = {
-            employee: null,
+            employee: {
+                id: 0,
+                name: '',
+                role: '',
+                departmentId: 0,
+                isSupervisor: false,
+                hireDate: '1900-01-01',
+                createDate: '',
+                deleteDate: '',
+                departmentName: ''
+            },
             isEditMode: false,
             departmentNameIds: []
         }
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
-
     }
+
 
     async componentDidMount() {
 
-        const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/employees?id=${this.props.id}`)
+        const employeeData = await (await axios.get(`${process.env.PUBLIC_URL}/api/employees?id=${this.props.id}`)).data[0];
 
-        const retrievedEmployee = data[0];
+        const departmentNameIds = await (await axios.get(`${process.env.PUBLIC_URL}/api/departmentNameIds`)).data;
 
         this.setState({
-            employee:
-            {
-                departmentId: retrievedEmployee.departmentId,
-                departmentName: retrievedEmployee.departmentName,
-                id: retrievedEmployee.id,
-                name: retrievedEmployee.name,
-                role: retrievedEmployee.role,
-                isSupervisor: retrievedEmployee.isSupervisor,
-                hireDate: retrievedEmployee.hireDate,
-                createDate: retrievedEmployee.createDate
-            }
-        })
+            employee: employeeData,
+            departmentNameIds
+        });
     }
+
 
     onFormSubmit(form) {
 
         form.preventDefault();
 
-        console.log(form); //get the form data and figure out how to format it as employee
-
-        //axios put call
+        console.log(form);
 
         this.setState({ isEditMode: false });
     }
+
 
     onEditClick() {
 
         this.setState({ isEditMode: true });
     }
 
-    async onDepartmentDropdown() {
-
-        const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/departmentNameIds`)
-
-        const retrievedDepartments = [];
-
-        for (const department in data) {
-
-            retrievedDepartments.push({
-                departmentId: data[department].departmentId,
-                departmentName: data[department].departmentName
-            })
-        }
-    }
 
     render() {
 
-        const { isEditMode } = this.state;
+        const { isEditMode, departmentNameIds } = this.state;
+
+        const selectOptions = departmentNameIds.map(department => {
+
+            return <option value={department.id} selected={department.id === this.state.employee.departmentId ? 'selected' : ''}>{department.name}</option>
+        })
+
 
         return (
 
@@ -80,20 +74,23 @@ class Employee extends React.Component {
                     <>
                         <form onSubmit={(e) => this.onFormSubmit(e)}>
                             <label for='employeeName'>Name:</label><br />
-                            <input type='text' id='employeeName' name='Employee Name' value={this.state.name} /><br />
+                            <input type='text' id='employeeName' name='EmployeeName' value={this.state.employee.name} /><br />
 
                             <label for='employeeRole'>Role:</label><br />
-                            <input type='text' id='employeeRole' name='Employee Role' value={this.state.role} /><br />
+                            <input type='text' id='employeeRole' name='EmployeeRole' value={this.state.employee.role} /><br />
 
                             <label for='employeeDepartment'>Department:</label><br />
-                            <select id='employeeDepartment' name='Employee Department'>
+                            <select id='employeeDepartment' name='EmployeeDepartment'>
+                                {selectOptions}
                             </select>
 
-                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.isSupervisor} />
+                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.employee.isSupervisor} />
                             <label for='isSupervisor'>Supervisor</label><br />
 
                             <label for='hireDate'>Hire Date:</label><br />
-                            <input type='date' id='hireDate' name='Employee Hire Date' value={this.state.hireDate} /><br />
+                            <input type='date' id='hireDate' name='EmployeeHireDate' value={this.state.employee.hireDate} /><br />
+
+                            <br /><input type='submit' id='editSubmit' name='editSubmit' vale='Submit' />
                         </form>
                     </>
                     :
@@ -102,15 +99,38 @@ class Employee extends React.Component {
                             <h1 className='employeeNameHeader'>Employee</h1>
                         </div>
                         <div className='employeeButtonHeader'>
-                            <button onClick={this.state.onEditClick}>Edit Employee</button>
+                            <button onClick={() => this.onEditClick()}>Edit Employee</button>
                         </div>
                         <div className='employeeBody'>
-                            <h1>{this.state.employee.name}</h1>
-                            <h1>{this.state.employee.id}</h1>
-                            <h1>{this.state.employee.role}</h1>
-                            <h1>{this.state.employee.departmentId}</h1>
-                            <h1>{this.state.employee.hireDate}</h1>
-                            <h1>{this.state.employee.isSupervisor}</h1>
+                            <div className='employeeBodyName'>
+                                <h1>Name: </h1>
+                                <h1>{this.state.employee.name}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyId'>
+                                <h1>Employee Id: </h1>
+                                <h1>{this.state.employee.id}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyRole'>
+                                <h1>Role: </h1>
+                                <h1>{this.state.employee.role}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyDepartment'>
+                                <h1>Department: </h1>
+                                <h1>{this.state.employee.departmentName}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyHireDate'>
+                                <h1>Hire Date: </h1>
+                                <h1>{this.state.employee.hireDate}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyIsSupervisor'>
+                                <h1>Supervisor?: </h1>
+                                <h1>{this.state.employee.isSupervisor ? `YES` : `NO`}</h1><br />
+                            </div>
                         </div>
                     </>
                 }
