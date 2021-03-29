@@ -17,6 +17,8 @@ class Employee extends React.Component {
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onEditClick = this.onEditClick.bind(this);
+        this.inputOnChange = this.inputOnChange.bind(this);
+
 
     }
 
@@ -51,7 +53,21 @@ class Employee extends React.Component {
     }
 
 
+    inputOnChange(changeEvent) {
+
+        const employeeDeepCopy = JSON.parse(JSON.stringify(this.state.updatedEmployee));
+
+        employeeDeepCopy[changeEvent.target.id] = changeEvent.target.value;
+
+        this.setState({
+            updatedEmployee: employeeDeepCopy
+        });
+    }
+
+
     render() {
+
+        console.log(this.state.updatedEmployee?.departmentId);
 
         const { isEditMode, departmentNameIds } = this.state;
 
@@ -68,21 +84,21 @@ class Employee extends React.Component {
                     <>
                         <form onSubmit={(e) => this.onFormSubmit(e)}>
                             <label for='employeeName'>Name:</label><br />
-                            <input type='text' id='employeeName' name='EmployeeName' value={this.state.updatedEmployee.name} /><br />
+                            <input type='text' id='name' name='EmployeeName' value={this.state.updatedEmployee.name} onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <label for='employeeRole'>Role:</label><br />
-                            <input type='text' id='employeeRole' name='EmployeeRole' value={this.state.updatedEmployee.role} /><br />
+                            <input type='text' id='role' name='EmployeeRole' value={this.state.updatedEmployee.role} onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <label for='employeeDepartment'>Department:</label><br />
-                            <select id='employeeDepartment' name='EmployeeDepartment'>
+                            <select id='departmentName' name='EmployeeDepartment' onChange={(e) => this.inputOnChange(e)} >
                                 {selectOptions}
                             </select>
 
-                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.updatedEmployee.isSupervisor} />
+                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.updatedEmployee.isSupervisor} onChange={(e) => this.inputOnChange(e)} />
                             <label for='isSupervisor'>Supervisor</label><br />
 
                             <label for='hireDate'>Hire Date:</label><br />
-                            <input type='date' id='hireDate' name='EmployeeHireDate' /><br />
+                            <input type='date' id='hireDate' name='EmployeeHireDate' onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <br /><input type='submit' id='editSubmit' name='editSubmit' vale='Submit' />
                         </form>
