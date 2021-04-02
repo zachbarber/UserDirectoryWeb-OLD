@@ -43,15 +43,16 @@ class Employee extends React.Component {
 
         this.setState({ isEditMode: false });
 
-        const employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`)).data[0];
+        // const employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`)).data;
 
-        this.setState({
-            employee: employeePutReturned,
-            updatedEmployee: employeePutReturned
-        });
-        
+        const employeePutReturned = await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`);
+
+        // this.setState({
+        //     employee: employeePutReturned,
+        //     updatedEmployee: employeePutReturned
+        // });
+
         console.log(employeePutReturned);
-        //if no errors in PUT, set employee to updated employee?
     }
 
 
@@ -62,6 +63,8 @@ class Employee extends React.Component {
 
 
     inputOnChange(changeEvent) {
+
+        console.log(changeEvent.target.value);
 
         const employeeDeepCopy = JSON.parse(JSON.stringify(this.state.updatedEmployee));
 
@@ -75,8 +78,6 @@ class Employee extends React.Component {
 
 
     render() {
-
-        //need to somehow link the id and department, use departmentNameIds
 
         const { isEditMode, departmentNameIds } = this.state;
 
@@ -105,7 +106,7 @@ class Employee extends React.Component {
                             <input type='text' id='emailAddress' name='emailAddress' value={this.state.updatedEmployee.emailAddress} onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <label for='employeeDepartment'>Department:</label><br />
-                            <select id='departmentName' name='EmployeeDepartment' onChange={(e) => this.inputOnChange(e)} >
+                            <select id='departmentName' name='EmployeeDepartment' value={this.state.updatedEmployee.departmentId} onChange={(e) => this.inputOnChange(e)} >
                                 {selectOptions}
                             </select>
 
