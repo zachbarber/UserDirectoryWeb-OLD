@@ -18,8 +18,6 @@ class Employee extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onEditClick = this.onEditClick.bind(this);
         this.inputOnChange = this.inputOnChange.bind(this);
-
-
     }
 
 
@@ -37,13 +35,23 @@ class Employee extends React.Component {
     }
 
 
-    onFormSubmit(formSubmitEvent) {
+    async onFormSubmit(formSubmitEvent) {
 
         formSubmitEvent.preventDefault();
 
-        console.log(formSubmitEvent);
+        console.log(this.state.updatedEmployee);
 
         this.setState({ isEditMode: false });
+
+        const employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`)).data[0];
+
+        this.setState({
+            employee: employeePutReturned,
+            updatedEmployee: employeePutReturned
+        });
+        
+        console.log(employeePutReturned);
+        //if no errors in PUT, set employee to updated employee?
     }
 
 
@@ -62,12 +70,13 @@ class Employee extends React.Component {
         this.setState({
             updatedEmployee: employeeDeepCopy
         });
+
     }
 
 
     render() {
 
-        console.log(this.state.updatedEmployee?.departmentId);
+        //need to somehow link the id and department, use departmentNameIds
 
         const { isEditMode, departmentNameIds } = this.state;
 
@@ -89,12 +98,18 @@ class Employee extends React.Component {
                             <label for='employeeRole'>Role:</label><br />
                             <input type='text' id='role' name='EmployeeRole' value={this.state.updatedEmployee.role} onChange={(e) => this.inputOnChange(e)} /><br />
 
+                            <label for='phoneNumber'>Phone Number:</label><br />
+                            <input type='text' id='phoneNumber' name='phoneNumber' value={this.state.updatedEmployee.phoneNumber} onChange={(e) => this.inputOnChange(e)} /><br />
+
+                            <label for='emailAddress'>Email Address:</label><br />
+                            <input type='text' id='emailAddress' name='emailAddress' value={this.state.updatedEmployee.emailAddress} onChange={(e) => this.inputOnChange(e)} /><br />
+
                             <label for='employeeDepartment'>Department:</label><br />
                             <select id='departmentName' name='EmployeeDepartment' onChange={(e) => this.inputOnChange(e)} >
                                 {selectOptions}
                             </select>
 
-                            <input type='checkbox' id='isSupervisor' name='Supervisor' value={this.state.updatedEmployee.isSupervisor} onChange={(e) => this.inputOnChange(e)} />
+                            <input type='checkbox' id='isSupervisor' name='Supervisor' checked={this.state.updatedEmployee.isSupervisor ? `checked` : ``} onChange={(e) => this.inputOnChange(e)} />
                             <label for='isSupervisor'>Supervisor</label><br />
 
                             <label for='hireDate'>Hire Date:</label><br />
@@ -125,6 +140,16 @@ class Employee extends React.Component {
                             <div className='employeeBodyRole'>
                                 <h1>Role: </h1>
                                 <h1>{this.state.employee?.role}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyPhoneNumber'>
+                                <h1>Phone Number: </h1>
+                                <h1>{this.state.employee?.phoneNumber}</h1><br />
+                            </div>
+
+                            <div className='employeeBodyEmailAddress'>
+                                <h1>Email Address: </h1>
+                                <h1>{this.state.employee?.emailAddress}</h1><br />
                             </div>
 
                             <div className='employeeBodyDepartment'>
