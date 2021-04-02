@@ -39,34 +39,26 @@ class Employee extends React.Component {
 
         formSubmitEvent.preventDefault();
 
-        console.log(this.state.updatedEmployee);
-
-        this.setState({ isEditMode: false });
-
-        // const employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`)).data;
-
         const employeeDeepCopy = JSON.parse(JSON.stringify(this.state.updatedEmployee));
-
+        
         employeeDeepCopy.departmentId = parseInt(employeeDeepCopy.departmentId);
-
+        
         employeeDeepCopy.id = parseInt(employeeDeepCopy.id);
-
+        
         employeeDeepCopy.hireDate = new Date(employeeDeepCopy.hireDate).toISOString().split('T')[0];
-
-        let employeePutReturned = null;
-
+        
         try {
-            employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`, employeeDeepCopy)).data[0];
+            
+            const employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`, employeeDeepCopy)).data[0];
+                        
+            this.setState({
+                employee: employeePutReturned,
+                updatedEmployee: employeePutReturned,
+                isEditMode: false
+            });
         } catch (err) {
             console.log(err)
         };
-
-        this.setState({
-            employee: employeePutReturned,
-            updatedEmployee: employeePutReturned
-        });
-
-        console.log(employeePutReturned);
     }
 
 
@@ -78,11 +70,13 @@ class Employee extends React.Component {
 
     inputOnChange(changeEvent) {
 
-        console.log(changeEvent.target.value);
+        const target = changeEvent.target;
+
+        const value = target.type === 'checkbox' ? target.checked : target.value;
 
         const employeeDeepCopy = JSON.parse(JSON.stringify(this.state.updatedEmployee));
 
-        employeeDeepCopy[changeEvent.target.id] = changeEvent.target.value;
+        employeeDeepCopy[target.id] = value;
 
         this.setState({
             updatedEmployee: employeeDeepCopy
@@ -124,7 +118,7 @@ class Employee extends React.Component {
                                 {selectOptions}
                             </select>
 
-                            <input type='checkbox' id='isSupervisor' name='Supervisor' checked={updatedEmployee.isSupervisor ? `checked` : ``} onChange={(e) => this.inputOnChange(e)} />
+                            <input type='checkbox' id='isSupervisor' name='Supervisor' checked={updatedEmployee.isSupervisor} onChange={(e) => this.inputOnChange(e)} />
                             <label for='isSupervisor'>Supervisor</label><br />
 
                             <label for='hireDate'>Hire Date:</label><br />
