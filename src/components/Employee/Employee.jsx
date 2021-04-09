@@ -11,8 +11,8 @@ class Employee extends React.Component {
         this.state = {
             employee: null,
             updatedEmployee: null,
-            isEditMode: false,
-            departmentNameIds: []
+            departmentNameIds: [],
+            isEditMode: false
         }
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -102,10 +102,10 @@ class Employee extends React.Component {
                     <>
                         <form onSubmit={(e) => this.onFormSubmit(e)}>
                             <label for='employeeName'>Name:</label><br />
-                            <input type='text' id='name' name='EmployeeName' value={updatedEmployee.name} onChange={(e) => this.inputOnChange(e)} /><br />
+                            <input type='text' id='name' name='employeeName' value={updatedEmployee.name} onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <label for='employeeRole'>Role:</label><br />
-                            <input type='text' id='role' name='EmployeeRole' value={updatedEmployee.role} onChange={(e) => this.inputOnChange(e)} /><br />
+                            <input type='text' id='role' name='employeeRole' value={updatedEmployee.role} onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <label for='phoneNumber'>Phone Number:</label><br />
                             <input type='text' id='phoneNumber' name='phoneNumber' value={updatedEmployee.phoneNumber} onChange={(e) => this.inputOnChange(e)} /><br />
@@ -118,11 +118,11 @@ class Employee extends React.Component {
                                 {selectOptions}
                             </select>
 
-                            <input type='checkbox' id='isSupervisor' name='Supervisor' checked={updatedEmployee.isSupervisor} onChange={(e) => this.inputOnChange(e)} />
+                            <input type='checkbox' id='isSupervisor' name='supervisor' checked={updatedEmployee.isSupervisor} onChange={(e) => this.inputOnChange(e)} />
                             <label for='isSupervisor'>Supervisor</label><br />
 
                             <label for='hireDate'>Hire Date:</label><br />
-                            <input type='date' id='hireDate' name='EmployeeHireDate' onChange={(e) => this.inputOnChange(e)} /><br />
+                            <input type='date' id='hireDate' name='employeeHireDate' onChange={(e) => this.inputOnChange(e)} /><br />
 
                             <br /><input type='submit' id='editSubmit' name='editSubmit' value='Submit' />
                         </form>
