@@ -3,32 +3,23 @@ import axios from 'axios';
 import './Department.css';
 
 class Department extends React.Component {
-
     constructor(props) {
-
         super(props)
-
+        this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onEditClick = this.onEditClick.bind(this);
+        this.inputOnChange = this.inputOnChange.bind(this);
         this.state = {
             department: null,
             updatedDepartment: null,
             employeesList: [],
             isEditMode: false
         }
-
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-        this.onEditClick = this.onEditClick.bind(this);
-        this.inputOnChange = this.inputOnChange.bind(this);
     }
 
-
     async componentDidMount() {
-
         const departmentData = await (await axios.get(`${process.env.PUBLIC_URL}/api/departments?id=${this.props.id}`)).data[0];
-
         const employeesData = await (await axios.get(`${process.env.PUBLIC_URL}/api/departmentEmployeeList?id=${this.props.id}`)).data;
-
         const employeesList = []
-
         for (const employee in employeesData) {
             employeesList.push({
                 employeeId: employeesData[employee].id,
@@ -44,21 +35,14 @@ class Department extends React.Component {
         });
     }
 
-
     async onFormSubmit(formSubmitEvent) {
-
         formSubmitEvent.preventDefault();
-
         const departmentDeepCopy = JSON.parse(JSON.stringify(this.state.updatedDepartment));
-
         departmentDeepCopy.departmentId = parseInt(departmentDeepCopy.departmentId);
-
         departmentDeepCopy.departmentSupervisorId = parseInt(departmentDeepCopy.departmentSupervisorId);
 
         try {
-
             const departmentPutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/departments?id=${this.state.updatedDepartment.id}`, departmentDeepCopy)).data[0];
-
             this.setState({
                 employee: departmentPutReturned,
                 updatedEmployee: departmentPutReturned,
@@ -69,38 +53,25 @@ class Department extends React.Component {
         };
     }
 
-
     onEditClick() {
-
         this.setState({ isEditMode: true });
     }
 
-
     inputOnChange(changeEvent) {
-
         const departmentDeepCopy = JSON.parse(JSON.stringify(this.state.updatedDepartment));
-
         departmentDeepCopy[changeEvent.target.id] = changeEvent.target.value;
-
         this.setState({
             updatedDepartment: departmentDeepCopy
         });
-
     }
 
-
     render() {
-
         const { isEditMode, employeesList, updatedDepartment, department } = this.state;
-
         const employeesListMapped = employeesList.map(employee => {
-
             return <li value={employee.id}>{employee.name}</li>
         })
-
-
+        
         return (
-
             <>
                 {isEditMode ?
                     <>

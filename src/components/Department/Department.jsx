@@ -4,9 +4,7 @@ import './Department.css';
 
 class Department extends React.Component {
     constructor(props) {
-
         super(props)
-
         this.state = {
             departmentId: this.props.id,
             departmentName: null,
@@ -16,13 +14,9 @@ class Department extends React.Component {
     }
 
     async componentDidMount() {
-
         const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/departments/?id=${this.props.id}`);
-
         const employeesList = [];
-
         for (const employee in data) {
-
             employeesList.push({
                 employeeId: data[employee].employeeId,
                 employeeName: data[employee].employeeName,
@@ -41,7 +35,6 @@ class Department extends React.Component {
     }
 
     render() {
-
         return (
             <div className='headerDiv'>
                 <h1 className='nameHeader'>{this.state.departmentName}</h1>

@@ -2,29 +2,22 @@ import React from 'react';
 import './Sidebar.css';
 
 class Sidebar extends React.Component {
-
     constructor(props) {
-
         super(props)
-
+        this.sidebarButtonOnClick = this.sidebarButtonOnClick.bind(this);
         this.state = {
             isExpanded: true,
         }
-
-        this.sidebarButtonOnClick = this.sidebarButtonOnClick.bind(this);
     }
 
     sidebarButtonOnClick() {
-
         this.setState({
             isExpanded: !this.state.isExpanded
         })
     }
 
     render() {
-
         const { isExpanded } = this.state;
-
         return (
         <>
                     <div className={isExpanded ? 'sidebarContainerExpanded' : 'sidebarContainerCollapsed'} >

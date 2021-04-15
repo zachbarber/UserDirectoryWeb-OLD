@@ -10,17 +10,11 @@ import Employee from './components/Employee/Employee';
 import './App.css';
 
 class App extends React.Component {
-
   constructor() {
-
     super();
-
     this.sidebarSelectHandler = this.sidebarSelectHandler.bind(this);
-
     this.employeeSelectHandler = this.employeeSelectHandler.bind(this);
-
     this.departmentSelectHandler = this.departmentSelectHandler.bind(this);
-
     this.state = {
       linkSelection: 'home',
       selectedEmployeeId: null,
@@ -49,7 +43,6 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
       <div className='app'>
         <Sidebar sidebarSelectHandler={this.sidebarSelectHandler} />
@@ -86,7 +79,6 @@ class App extends React.Component {
       </div>
     );
   }
-
 }
 
 export default App;
