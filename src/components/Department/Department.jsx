@@ -14,32 +14,30 @@ class Department extends React.Component {
     }
 
     async componentDidMount() {
-        const { data } = await axios.get(`${process.env.PUBLIC_URL}/api/departments/?id=${this.props.id}`);
-        const employeesList = [];
-        for (const employee in data) {
-            employeesList.push({
-                employeeId: data[employee].employeeId,
-                employeeName: data[employee].employeeName,
-                isSupervisor: data[employee].isSupervisor
-            });
-        }
+        const { data: departmentData } = await axios.get(`${process.env.PUBLIC_URL}/api/departments/?id=${this.props.id}`);
+        console.log(departmentData);
+        const { data: employeeData } = await axios.get(`${process.env.PUBLIC_URL}/api/departmentEmployeeList/?id=${this.props.id}`);
+        console.log(employeeData);
 
         this.setState({
-            departmentId: data[0].id,
-            departmentName: data[0].name,
-            supervisorId: data[0].supervisorId,
-            employees: employeesList
+            departmentId: departmentData[0].id,
+            departmentName: departmentData[0].name,
+            supervisorId: departmentData[0].supervisorId,
+            employees: employeeData
         });
-
-        console.log(this.state);
     }
 
     render() {
+        const { employees } = this.state;
+        const employeesList = employees.map(employee => {
+            return <li onClick={(clickEvent) => this.props.employeeSelectHandler(clickEvent.target.id)} id={employee.employeeId} className='employeeLink'>{employee.employeeName}</li>
+        })
+
         return (
             <div className='headerDiv'>
                 <h1 className='nameHeader'>{this.state.departmentName}</h1>
+                <ul>{employeesList}</ul>
             </div>
-            //add in buttons (edit, add, delete) and space-between? flex
         )
     }
 }

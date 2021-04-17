@@ -17,11 +17,11 @@ class Employee extends React.Component {
     }
 
     async componentDidMount() {
-        const employeeData = await (await axios.get(`${process.env.PUBLIC_URL}/api/employees?id=${this.props.id}`)).data[0];
-        const departmentNameIds = await (await axios.get(`${process.env.PUBLIC_URL}/api/departmentNameIds`)).data;
+        const { data: employeeData } = await axios.get(`${process.env.PUBLIC_URL}/api/employees?id=${this.props.id}`);
+        const { data: departmentNameIds } = await axios.get(`${process.env.PUBLIC_URL}/api/departmentNameIds`);
         this.setState({
-            employee: employeeData,
-            updatedEmployee: employeeData,
+            employee: employeeData[0],
+            updatedEmployee: employeeData[0],
             departmentNameIds
         });
     }
@@ -34,10 +34,10 @@ class Employee extends React.Component {
         employeeDeepCopy.hireDate = new Date(employeeDeepCopy.hireDate).toISOString().split('T')[0];
         
         try {
-            const employeePutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`, employeeDeepCopy)).data[0];           
+            const { data: employeePutReturned } = await axios.put(`${process.env.PUBLIC_URL}/api/employees?id=${this.state.updatedEmployee.id}`, employeeDeepCopy);           
             this.setState({
-                employee: employeePutReturned,
-                updatedEmployee: employeePutReturned,
+                employee: employeePutReturned[0],
+                updatedEmployee: employeePutReturned[0],
                 isEditMode: false
             });
         } catch (err) {

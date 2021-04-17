@@ -59,7 +59,7 @@ class App extends React.Component {
             </Route>
 
             <Route path='/department'>
-              <Department id={this.state.selectedDepartmentId} />
+              <Department id={this.state.selectedDepartmentId} employeeSelectHandler={this.employeeSelectHandler}/>
             </Route>
 
             <Route path='/employees'>
