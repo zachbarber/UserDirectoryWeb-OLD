@@ -15,9 +15,7 @@ class Department extends React.Component {
 
     async componentDidMount() {
         const { data: departmentData } = await axios.get(`${process.env.PUBLIC_URL}/api/departments/?id=${this.props.id}`);
-        console.log(departmentData);
         const { data: employeeData } = await axios.get(`${process.env.PUBLIC_URL}/api/departmentEmployeeList/?id=${this.props.id}`);
-        console.log(employeeData);
 
         this.setState({
             departmentId: departmentData[0].id,
@@ -30,7 +28,7 @@ class Department extends React.Component {
     render() {
         const { employees } = this.state;
         const employeesList = employees.map(employee => {
-            return <li onClick={(clickEvent) => this.props.employeeSelectHandler(clickEvent.target.id)} id={employee.employeeId} className='employeeLink'>{employee.employeeName}</li>
+            return <li onClick={(clickEvent) => this.props.employeeSelectHandler(clickEvent.target.id)} id={employee.id} className='employeeLink'>{employee.name}</li>
         })
 
         return (
