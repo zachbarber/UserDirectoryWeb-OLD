@@ -39,7 +39,6 @@ class Department extends React.Component {
         formSubmitEvent.preventDefault();
         const departmentDeepCopy = JSON.parse(JSON.stringify(this.state.updatedDepartment));
         departmentDeepCopy.departmentId = parseInt(departmentDeepCopy.departmentId);
-        departmentDeepCopy.departmentSupervisorId = parseInt(departmentDeepCopy.departmentSupervisorId);
 
         try {
             const departmentPutReturned = await (await axios.put(`${process.env.PUBLIC_URL}/api/departments?id=${this.state.updatedDepartment.id}`, departmentDeepCopy)).data[0];
@@ -70,7 +69,7 @@ class Department extends React.Component {
         const employeesListMapped = employeesList.map(employee => {
             return <li value={employee.id}>{employee.name}</li>
         })
-        
+
         return (
             <>
                 {isEditMode ?

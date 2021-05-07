@@ -7,6 +7,7 @@ import DepartmentsList from './components/DepartmentsList/DepartmentsList';
 import Department from './components/Department/Department';
 import EmployeesList from './components/EmployeesList/EmployeesList';
 import Employee from './components/Employee/Employee';
+import EditEmployee from './components/EditEmployee/EditEmployee';
 import './App.css';
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
     super();
     this.sidebarSelectHandler = this.sidebarSelectHandler.bind(this);
     this.employeeSelectHandler = this.employeeSelectHandler.bind(this);
+    this.editEmployeeSelectHandler = this.editEmployeeSelectHandler.bind(this);
     this.departmentSelectHandler = this.departmentSelectHandler.bind(this);
     this.state = {
       linkSelection: 'home',
@@ -32,6 +34,14 @@ class App extends React.Component {
     this.setState({
       linkSelection: 'employee',
       selectedEmployeeId
+    });
+  }
+
+  editEmployeeSelectHandler(selectedEmployeeId, selectedDepartmentId) {
+    this.setState({
+      linkSelection: 'editEmployee',
+      selectedEmployeeId,
+      selectedDepartmentId
     });
   }
 
@@ -54,22 +64,25 @@ class App extends React.Component {
               <Home />
             </Route>
 
-            <Route path ='/departments'>
+            <Route path='/departmentsList'>
               <DepartmentsList departmentSelectHandler={this.departmentSelectHandler} />
             </Route>
 
             <Route path='/department'>
-              <Department id={this.state.selectedDepartmentId} employeeSelectHandler={this.employeeSelectHandler}/>
+              <Department id={this.state.selectedDepartmentId} employeeSelectHandler={this.employeeSelectHandler} editEmployeeSelectHandler={this.editEmployeeSelectHandler} />
             </Route>
 
-            <Route path='/employees'>
-              <EmployeesList employeeSelectHandler={this.employeeSelectHandler} />
+            <Route path='/employeesList'>
+              <EmployeesList employeeSelectHandler={this.employeeSelectHandler} editEmployeeSelectHandler={this.editEmployeeSelectHandler} />
             </Route>
 
             <Route path='/employee'>
-              <Employee id={this.state.selectedEmployeeId} />
+              <Employee id={this.state.selectedEmployeeId} editEmployeeSelectHandler={this.editEmployeeSelectHandler} />
             </Route>
 
+            <Route path='/editEmployee'>
+              <EditEmployee employeeId={this.state.selectedEmployeeId} departmentId={this.state.selectedDepartmentId} />
+            </Route>
 
             <Redirect to={this.state.linkSelection} />
 

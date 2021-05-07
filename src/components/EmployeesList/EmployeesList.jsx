@@ -21,12 +21,19 @@ class EmployeesList extends React.Component {
             return <li onClick={(clickEvent) => this.props.employeeSelectHandler(clickEvent.target.id)} id={employee.id} className='employeeLink'>{employee.name}</li>
         });
 
-        return(
-            <div>
-                <ul>
-                    {employeesList}
-                </ul>
-            </div>
+        return (
+            <>
+                <div>
+                    <ul>
+                        {employeesList}
+                    </ul>
+                </div>
+                <div className='addEmployeeButtonDiv'>
+                    <br />
+                    <button className='addEmployeeButton' name='addEmployee' value='Add Employee' id={this.props.id} onClick={(clickEvent) => this.props.editEmployeeSelectHandler(clickEvent.target.id, 0)} />
+                    <br />
+                </div>
+            </>
         )
     }
 }

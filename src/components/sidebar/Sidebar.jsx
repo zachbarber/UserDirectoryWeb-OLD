@@ -24,8 +24,8 @@ class Sidebar extends React.Component {
                     <div className={isExpanded ? 'sidebarListContainerExpanded' : 'sidebarListContainerCollapsed'} >
                         <ul className={isExpanded ? 'sidebarListExpanded' : 'sidebarListCollapsed'} >
                             <li onClick={(clickEvent) => this.props.sidebarSelectHandler(clickEvent.target.id)} id='home' className={isExpanded ? 'sidebarListItemExpanded' : 'sidebarListItemCollapsed'}>Home</li>
-                            <li onClick={(clickEvent) => this.props.sidebarSelectHandler(clickEvent.target.id)} id='departments' className={isExpanded ? 'sidebarListItemExpanded' : 'sidebarListItemCollapsed'}>Departments</li>
-                            <li onClick={(clickEvent) => this.props.sidebarSelectHandler(clickEvent.target.id)} id='employees' className={isExpanded ? 'sidebarListItemExpanded' : 'sidebarListItemCollapsed'}>Employees</li>
+                            <li onClick={(clickEvent) => this.props.sidebarSelectHandler(clickEvent.target.id)} id='departmentsList' className={isExpanded ? 'sidebarListItemExpanded' : 'sidebarListItemCollapsed'}>Departments</li>
+                            <li onClick={(clickEvent) => this.props.sidebarSelectHandler(clickEvent.target.id)} id='employeesList' className={isExpanded ? 'sidebarListItemExpanded' : 'sidebarListItemCollapsed'}>Employees</li>
                         </ul>
                     </div>
 

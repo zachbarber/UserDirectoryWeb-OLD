@@ -8,7 +8,6 @@ class Department extends React.Component {
         this.state = {
             departmentId: this.props.id,
             departmentName: null,
-            supervisorId: null,
             employees: []
         }
     }
@@ -20,7 +19,6 @@ class Department extends React.Component {
         this.setState({
             departmentId: departmentData[0].id,
             departmentName: departmentData[0].name,
-            supervisorId: departmentData[0].supervisorId,
             employees: employeeData
         });
     }
@@ -32,10 +30,17 @@ class Department extends React.Component {
         })
 
         return (
-            <div className='headerDiv'>
-                <h1 className='nameHeader'>{this.state.departmentName}</h1>
-                <ul>{employeesList}</ul>
-            </div>
+            <>
+                <div className='headerDiv'>
+                    <h1 className='nameHeader'>{this.state.departmentName}</h1>
+                    <ul>{employeesList}</ul>
+                </div>
+                <div className='addEmployeeButtonDiv'>
+                    <br />
+                    <button className='addEmployeeButton' name='addEmployee' value='Add Employee' id={this.props.id} onClick={(clickEvent) => this.props.editEmployeeSelectHandler(0, clickEvent.target.id)} />
+                    <br />
+                </div>
+            </>
         )
     }
 }
