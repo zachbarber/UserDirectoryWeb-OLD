@@ -38,12 +38,18 @@ class App extends React.Component {
   }
 
   editEmployeeSelectHandler(selectedEmployeeId, selectedDepartmentId) {
+    //if employee id, link selection is editEmployee/queryparams
+      if (selectedEmployeeId)
     this.setState({
-      linkSelection: 'editEmployee',
+      linkSelection: `editEmployee/?employeeId=${selectedEmployeeId}&isNew=${false}`,
       selectedEmployeeId,
       selectedDepartmentId
     });
   }
+
+  //else if departmentId query params with isnew 
+
+  //else isnew query params with isnew
 
   departmentSelectHandler(selectedDepartmentId) {
     this.setState({

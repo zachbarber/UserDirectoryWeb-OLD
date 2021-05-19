@@ -6,9 +6,9 @@ import './Employee.css';
 class Employee extends React.Component {
     constructor(props) {
         super(props)
+        this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onEditClick = this.onEditClick.bind(this);
-        this.inputOnChange = this.inputOnChange.bind(this);
         this.state = {
             employee: null,
             updatedEmployee: null,
@@ -24,6 +24,16 @@ class Employee extends React.Component {
             employee: employeeData[0],
             updatedEmployee: employeeData[0],
             departmentNameIds
+        });
+    }
+
+    onInputChange(changeEvent) {
+        const target = changeEvent.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const employeeDeepCopy = JSON.parse(JSON.stringify(this.state.updatedEmployee));
+        employeeDeepCopy[target.id] = value;
+        this.setState({
+            updatedEmployee: employeeDeepCopy
         });
     }
 
@@ -48,16 +58,6 @@ class Employee extends React.Component {
 
     onEditClick() {
         this.setState({ isEditMode: true });
-    }
-
-    inputOnChange(changeEvent) {
-        const target = changeEvent.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const employeeDeepCopy = JSON.parse(JSON.stringify(this.state.updatedEmployee));
-        employeeDeepCopy[target.id] = value;
-        this.setState({
-            updatedEmployee: employeeDeepCopy
-        });
     }
 
     render() {
@@ -117,7 +117,7 @@ class Employee extends React.Component {
                 </div>
                 <div className='editEmployeeButtonDiv'>
                     <br />
-                    <button className='editEmployeeButton' name='editEmployee' value='Edit Employee' id={employee?.id} onClick={(clickEvent) => this.props.editEmployeeSelectHandler(clickEvent.target.id)} />
+                    <button className='editEmployeeButton' name='editEmployee' value='Edit Employee' id={employee?.id} onClick={(clickEvent) => this.props.editEmployeeSelectHandler(clickEvent.target.id, employee.departmentId)} />
                     <br />
                 </div>
             </>

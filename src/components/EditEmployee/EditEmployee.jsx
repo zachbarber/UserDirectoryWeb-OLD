@@ -64,7 +64,7 @@ class EditEmployee extends React.Component {
     }
 
     render() {
-        const { employee, updatedEmployee, departmentNameIds } = this.state;
+        const { employeeId, departmentId, employee, updatedEmployee, departmentNameIds } = this.state;
         const selectOptions = departmentNameIds.map(department => {
             return <option value={department.id} selected={department.id === updatedEmployee.departmentId ? 'selected' : ''}>{department.name}</option>
         })
